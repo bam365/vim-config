@@ -20,8 +20,8 @@ To bootstrap vim:
 1. Copy the .vimrc from this repo to ~/.vimrc
 2. Run the vim-bootstrap.py script:
 
-        python2 pathogen-init.py ~/.vim
+        python2 vim-bootstrap.py ~/.vim
         # OR, if your default python is python2:
-        python pathogen-init.py ~/.vim
+        python vim-bootstrap.py ~/.vim
 
 The argument to vim-bootstrap.py is your user's vim config directory. This will vary on Windows or Mac.
