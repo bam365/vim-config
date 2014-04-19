@@ -24,4 +24,4 @@ To bootstrap vim:
         # OR, if your default python is python2:
         python pathogen-init.py ~/.vim
 
-The argument to pathogen-init.py is your user's vim config directory. This will vary on Windows or Mac.
+The argument to vim-bootstrap.py is your user's vim config directory. This will vary on Windows or Mac.
