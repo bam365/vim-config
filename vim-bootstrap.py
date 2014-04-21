@@ -14,7 +14,8 @@ packages = [
     ("vim-scripts","taglist.vim"),
     ("tpope","vim-markdown"),
     ("derekwyatt","vim-scala"),
-    ("jnwhiteh","vim-golang")
+    ("jnwhiteh","vim-golang"),
+    ("mattn", "emmet-vim")
 ]
 
 def mkdir_p(path):
