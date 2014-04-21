@@ -3,7 +3,6 @@
 
 " For multi-byte character support (CJK support, for example):
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
-colorscheme molokai
        
 set guioptions=""
 set guifont=Terminus\ 10
@@ -96,6 +95,8 @@ execute pathogen#infect()
 let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','''') .  "/ocamlmerlin"
 execute "set rtp+=".s:ocamlmerlin."/vim"
 execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+
+colorscheme molokai
 
 filetype plugin indent on
 syntax on
