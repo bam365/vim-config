@@ -14,7 +14,7 @@ packages = [
     ("vim-scripts","taglist.vim"),
     ("tpope","vim-markdown"),
     ("derekwyatt","vim-scala"),
-    ("jnwhiteh","vim-golang"),
+    ("fatih","vim-go"),
     ("mattn", "emmet-vim")
 ]
 
