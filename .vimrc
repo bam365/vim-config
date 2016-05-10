@@ -5,7 +5,7 @@
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
        
 set guioptions=""
-set guifont=Terminus\ 10
+set guifont=Droid\ Sans\ Mono\ 10
 set tabstop=8       " Number of spaces that a <Tab> in the file counts for.
  
 set shiftwidth=8    " Number of spaces to use for each step of (auto)indent.
@@ -86,9 +86,45 @@ map <F1> :NERDTreeToggle<CR>
 map <F2> :TlistToggle<CR>
 map <F3> :GrepOptions<CR>
 
+let mapleader = "\<SPACE>"
+
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>o :CtrlP<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+nmap <Leader><Leader> V
+
+nmap <silent> <leader>ev :e ~/.vimrc<CR>
+nmap <silent> <leader>sv :source ~/.vimrc<CR>
+nmap <silent> <leader>ep :e ~/.bash_profile<CR>
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+
 let g:loaded_minibufexplorer=1
 let g:go_highlight_trailing_whitespace_error=0
 let g:syntastic_ocaml_checkers = ['merlin']
+
+set laststatus=2
+let g:airline_theme='powerlineish'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_z=''
 
 execute pathogen#infect()
 

@@ -8,16 +8,20 @@ packages = [
     ("bam365", "vim-bamft"),
     ("tomasr", "molokai"),
     ("vim-scripts", "EasyGrep"),
+    ("vim-airline", "vim-airline"),
+    ("vim-airline", "vim-airline-themes"),
     ("pangloss", "vim-javascript"),
     ("scrooloose","nerdtree"),
     ("scrooloose","syntastic"),
     ("vim-scripts","taglist.vim"),
     ("tpope","vim-markdown"),
+    ("tpope","vim-commentary"),
     ("derekwyatt","vim-scala"),
     ("fatih","vim-go"),
     ("mattn", "emmet-vim"),
     ("raichoo", "purescript-vim"),
-    ("ctrlpvim", "ctrlp.vim")
+    ("ctrlpvim", "ctrlp.vim"),
+    ("terryma", "vim-expand-region")
 ]
 
 def mkdir_p(path):
