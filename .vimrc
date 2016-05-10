@@ -96,6 +96,7 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
+vmap <Leader>ww !ww<CR>
 nmap <Leader><Leader> V
 
 nmap <silent> <leader>ev :e ~/.vimrc<CR>
@@ -125,6 +126,7 @@ let g:airline_theme='powerlineish'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_z=''
+let g:airline_section_warning=''
 
 execute pathogen#infect()
 
@@ -136,5 +138,3 @@ colorscheme molokai
 
 filetype plugin indent on
 syntax on
-
-
