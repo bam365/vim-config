@@ -73,6 +73,8 @@ def main():
             install_packages(vimbase)
             print "DONE installing vim packages"
             print "pathogen bootstrapped"
+            os.system("cp kalisi.vim ~/.vim/bundle/vim-airline-themes/autoload/airline/themes")
+            print "Copied airline theme"
     else:
         print "%s is not a valid directory" % (vimbase)
 
