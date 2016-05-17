@@ -5,7 +5,7 @@
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
        
 set guioptions=""
-set guifont=Droid\ Sans\ Mono\ 10
+set guifont=Droid\ Sans\ Mono\ 9 
 set tabstop=8       " Number of spaces that a <Tab> in the file counts for.
  
 set shiftwidth=8    " Number of spaces to use for each step of (auto)indent.
@@ -92,15 +92,21 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>o :CtrlP<CR>
 vmap <Leader>y "+y
 vmap <Leader>d "+d
-nmap <Leader>p "+p
+map <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 vmap <Leader>ww !ww<CR>
 nmap <Leader><Leader> V
+nmap <Leader>h <C-w>h
+nmap <Leader>l <C-w>l
+nmap <Leader>t :tabe<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>sv :vsplit<CR>
+nmap <Leader>sh :split<CR>
+
 
 nmap <silent> <leader>ev :e ~/.vimrc<CR>
-nmap <silent> <leader>sv :source ~/.vimrc<CR>
 nmap <silent> <leader>ep :e ~/.bash_profile<CR>
 
 vmap v <Plug>(expand_region_expand)
