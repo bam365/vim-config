@@ -21,7 +21,13 @@ packages = [
     ("mattn", "emmet-vim"),
     ("raichoo", "purescript-vim"),
     ("ctrlpvim", "ctrlp.vim"),
-    ("terryma", "vim-expand-region")
+    ("terryma", "vim-expand-region"),
+    ("godlygeek", "tabular"),
+    ("Valloric", "YouCompleteMe"),
+    ("Quramy", "tsuquyomi"),
+    ("leafgarland", "typescript-vim"),
+    ("Shougo", "vimproc.vim"),
+    ("majutsushi", "tagbar")
 ]
 
 def mkdir_p(path):
