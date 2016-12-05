@@ -106,6 +106,11 @@ nmap <Leader>t :tabe<CR>
 nmap <Leader>q :q<CR>
 nmap <Leader>sv :vsplit<CR>
 nmap <Leader>sh :split<CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gd :Gdiff<CR>
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gb :Gblame<CR>
+nmap <Leader>ge :Gedit<CR>
 
 
 nmap <silent> <leader>ev :e ~/.vimrc<CR>
