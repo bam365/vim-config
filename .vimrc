@@ -5,7 +5,7 @@
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
        
 set guioptions=""
-set guifont=Droid\ Sans\ Mono\ 9 
+set guifont=DejaVu\ Sans\ Mono\ 10 
 set tabstop=8       " Number of spaces that a <Tab> in the file counts for.
  
 set shiftwidth=8    " Number of spaces to use for each step of (auto)indent.
@@ -89,7 +89,9 @@ map <F3> :GrepOptions<CR>
 let mapleader = "\<SPACE>"
 
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>of :CtrlP<CR>
+nnoremap <Leader>or :CtrlPMRU<CR>
+nnoremap <Leader>ft :TlistToggle<CR>
 vmap <Leader>y "+y
 vmap <Leader>d "+d
 map <Leader>p "+p
@@ -128,7 +130,7 @@ let g:go_highlight_trailing_whitespace_error=0
 let g:syntastic_ocaml_checkers = ['merlin']
 
 set laststatus=2
-let g:airline_theme='kalisi'
+let g:airline_theme='zenburn'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_z=''
@@ -140,7 +142,7 @@ let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','''') .  "
 execute "set rtp+=".s:ocamlmerlin."/vim"
 execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
 
-colorscheme molokai
+colorscheme zenburn
 
 filetype plugin indent on
 syntax on

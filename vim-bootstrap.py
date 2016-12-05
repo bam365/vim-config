@@ -15,6 +15,7 @@ packages = [
     ("scrooloose","syntastic"),
     ("vim-scripts","taglist.vim"),
     ("tpope","vim-markdown"),
+    ("tpope","vim-fugitive"),
     ("tpope","vim-commentary"),
     ("derekwyatt","vim-scala"),
     ("fatih","vim-go"),
@@ -27,7 +28,8 @@ packages = [
     ("Quramy", "tsuquyomi"),
     ("leafgarland", "typescript-vim"),
     ("Shougo", "vimproc.vim"),
-    ("majutsushi", "tagbar")
+    ("majutsushi", "tagbar"),
+    ("jnurmine", "Zenburn")
 ]
 
 def mkdir_p(path):
