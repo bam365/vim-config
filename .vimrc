@@ -6,9 +6,9 @@
        
 set guioptions=""
 set guifont=DejaVu\ Sans\ Mono\ 10 
-set tabstop=8       " Number of spaces that a <Tab> in the file counts for.
+set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
  
-set shiftwidth=8    " Number of spaces to use for each step of (auto)indent.
+set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
  
 set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
                     " Spaces are used in indents with the '>' and '<' commands
@@ -80,44 +80,7 @@ set background=dark " When set to "dark", Vim will try to use colors that look
 set mouse=a         " Enable the use of the mouse.
 
 
-"Auto-save folds
-
-map <F1> :NERDTreeToggle<CR>
-map <F2> :TlistToggle<CR>
-map <F3> :GrepOptions<CR>
-
-let mapleader = "\<SPACE>"
-
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>of :CtrlP<CR>
-nnoremap <Leader>or :CtrlPMRU<CR>
-nnoremap <Leader>ft :TlistToggle<CR>
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-map <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-vmap <Leader>ww !ww<CR>
-nmap <Leader><Leader> V
-nmap <Leader>h <C-w>h
-nmap <Leader>l <C-w>l
-nmap <Leader>t :tabe<CR>
-nmap <Leader>q :q<CR>
-nmap <Leader>sv :vsplit<CR>
-nmap <Leader>sh :split<CR>
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gd :Gdiff<CR>
-nmap <Leader>gc :Gcommit<CR>
-nmap <Leader>gb :Gblame<CR>
-nmap <Leader>ge :Gedit<CR>
-
-
-nmap <silent> <leader>ev :e ~/.vimrc<CR>
-nmap <silent> <leader>ep :e ~/.bash_profile<CR>
-
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+source ~/.vim/bam/bindings.vim
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
@@ -131,21 +94,16 @@ endfunction
 vmap <silent> <expr> p <sid>Repl()
 
 let g:loaded_minibufexplorer=1
-let g:go_highlight_trailing_whitespace_error=0
-let g:syntastic_ocaml_checkers = ['merlin']
-
-set laststatus=2
-let g:airline_theme='zenburn'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_section_z=''
-let g:airline_section_warning=''
 
 execute pathogen#infect()
 
-let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','''') .  "/ocamlmerlin"
-execute "set rtp+=".s:ocamlmerlin."/vim"
-execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+source ~/.vim/bam/airline.vim
+source ~/.vim/bam/ocaml.vim
+source ~/.vim/bam/typescript.vim
+source ~/.vim/bam/go.vim
+
+autocmd FileType typescript source ~/.vim/bam/typescript.vim 
+autocmd FileType haskell source ~/.vim/bam/haskell.vim 
 
 colorscheme zenburn
 
