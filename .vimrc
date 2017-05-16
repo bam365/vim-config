@@ -94,6 +94,9 @@ endfunction
 vmap <silent> <expr> p <sid>Repl()
 
 let g:loaded_minibufexplorer=1
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
+let g:ackprg = 'rg --vimgrep --no-heading --glob '. shellescape('!{.git,node_modules}')
 
 execute pathogen#infect()
 

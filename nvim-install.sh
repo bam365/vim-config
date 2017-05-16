@@ -1,7 +1,7 @@
 #!/bin/sh
 mkdir -p ~/.vim/bam
 mkdir -p ~/.config/nvim
-cp .vimrc ~/.vim
+cp .vimrc ~
 cp bam/*.vim ~/.vim/bam
 cp init.vim ~/.config/nvim
 python2 nvim-bootstrap.py
