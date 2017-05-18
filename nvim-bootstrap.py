@@ -12,7 +12,8 @@ packages = [
     ("vim-airline", "vim-airline-themes"),
     ("pangloss", "vim-javascript"),
     ("scrooloose","nerdtree"),
-    ("scrooloose","syntastic"),
+    #("scrooloose","syntastic"),
+    ("neomake","neomake"),
     ("vim-scripts","taglist.vim"),
     ("tpope","vim-markdown"),
     ("tpope","vim-fugitive"),
@@ -35,7 +36,8 @@ packages = [
     ("mileszs", "ack.vim"),
     ("cloudhead", "neovim-fuzzy"),
     ("ternjs", "tern_for_vim"),
-    ("mhinz", "vim-startify")
+    ("mhinz", "vim-startify"),
+    ("morhetz", "gruvbox")
 ]
 
 def mkdir_p(path):
