@@ -100,13 +100,16 @@ let g:ackprg = 'rg --vimgrep --no-heading --glob '. shellescape('!{.git,node_mod
 
 execute pathogen#infect()
 
+let g:syntastic_javascript_checkers = ['jshint']
+
 source ~/.vim/bam/airline.vim
-source ~/.vim/bam/ocaml.vim
+"source ~/.vim/bam/ocaml.vim
 source ~/.vim/bam/typescript.vim
 source ~/.vim/bam/go.vim
 
+autocmd FileType javascript source ~/.vim/bam/javascript.vim 
 autocmd FileType typescript source ~/.vim/bam/typescript.vim 
-autocmd FileType haskell source ~/.vim/bam/haskell.vim 
+"autocmd FileType haskell source ~/.vim/bam/haskell.vim 
 
 colorscheme zenburn
 

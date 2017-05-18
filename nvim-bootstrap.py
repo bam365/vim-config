@@ -33,7 +33,9 @@ packages = [
     ("parsonsmatt", "intero-neovim"),
     ("eagletmt", "neco-ghc"),
     ("mileszs", "ack.vim"),
-    ("cloudhead", "neovim-fuzzy")
+    ("cloudhead", "neovim-fuzzy"),
+    ("ternjs", "tern_for_vim"),
+    ("mhinz", "vim-startify")
 ]
 
 def mkdir_p(path):
