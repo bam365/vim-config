@@ -1,5 +1,6 @@
 #!/bin/sh
 mkdir -p ~/.vim/bam
+mkdir -p ~/.vim/session
 mkdir -p ~/.config/nvim
 cp .vimrc ~
 cp bam/*.vim ~/.vim/bam
