@@ -33,6 +33,7 @@ packages = [
     ("jnurmine", "Zenburn"),
     ("parsonsmatt", "intero-neovim"),
     ("eagletmt", "neco-ghc"),
+    ("eagletmt", "ghcmod-vim"),
     ("mileszs", "ack.vim"),
     ("cloudhead", "neovim-fuzzy"),
     ("ternjs", "tern_for_vim"),
