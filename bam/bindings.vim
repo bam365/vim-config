@@ -38,3 +38,5 @@ nmap <silent> <leader>ep :e ~/.bash_profile<CR>
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+inoremap <C-space> <C-x><C-o>

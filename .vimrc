@@ -80,6 +80,12 @@ set background=dark " When set to "dark", Vim will try to use colors that look
 set mouse=a         " Enable the use of the mouse.
 
 
+set completeopt=longest,menuone
+
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+
 source ~/.vim/bam/bindings.vim
 
 " vp doesn't replace paste buffer
@@ -98,22 +104,20 @@ let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 let g:ackprg = 'rg --vimgrep --no-heading --glob '. shellescape('!{.git,node_modules}')
 
-execute pathogen#infect()
-
+source ~/.vim/plugins.vim
 
 source ~/.vim/bam/linting.vim
 source ~/.vim/bam/airline.vim
-"source ~/.vim/bam/ocaml.vim
-source ~/.vim/bam/typescript.vim
-source ~/.vim/bam/go.vim
+
+source ~/.vim/bam/go.vim 
+source ~/.vim/bam/haskell.vim 
+source ~/.vim/bam/javascript.vim 
+source ~/.vim/bam/ocaml.vim 
+source ~/.vim/bam/typescript.vim 
 
 augroup filetypedetect
     au BufRead,BufNewFile *.cshtml setfiletype html
 augroup END
-
-autocmd FileType javascript source ~/.vim/bam/javascript.vim 
-autocmd FileType typescript source ~/.vim/bam/typescript.vim 
-"autocmd FileType haskell source ~/.vim/bam/haskell.vim 
 
 let g:gruvbox_termcolors=256
 "looks like shit in Windows 10 bash console
