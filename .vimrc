@@ -5,6 +5,7 @@
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
        
 set guioptions=""
+set termguicolors
 set guifont=DejaVu\ Sans\ Mono\ 10 
 set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
  
@@ -121,8 +122,8 @@ augroup END
 
 let g:gruvbox_termcolors=256
 "looks like shit in Windows 10 bash console
-let g:gruvbox_bold=0
-"let g:gruvbox_italic=1
+let g:gruvbox_bold=1
+let g:gruvbox_italic=1
 colorscheme gruvbox
 
 filetype plugin indent on
