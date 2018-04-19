@@ -15,10 +15,4 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs  https://raw.
 
 # python2 nvim-bootstrap.py
 
-echo ""
-echo "nvim setup complete. Don't forget to install outside deps: "
-echo ""
-echo "OS Packages: ctags, opam, fzy"
-echo "stack: intero, ghc-mod"
-echo "cargo: ripgrep"
-echo "npm: tern, jsctags, ocaml-language-server"
+nvim -c "PlugInstall" nvim-post.md
