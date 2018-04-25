@@ -33,4 +33,4 @@ endfor
 
 call OpamConfMerlin()
 
-let g:syntastic_ocaml_checkers = ['merlin']
+" let g:syntastic_ocaml_checkers = ['merlin']

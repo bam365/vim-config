@@ -105,6 +105,16 @@ let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 let g:ackprg = 'rg --vimgrep --no-heading --glob '. shellescape('!{.git,node_modules}')
 
+" for Ocaml, use LanguageClient rather than ale
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['ocaml-language-server', '--stdio'],
+    \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ }
+
+let g:ale_linters = {
+    \ 'ocaml': [],
+    \ }
+
 source ~/.vim/plugins.vim
 
 source ~/.vim/bam/linting.vim

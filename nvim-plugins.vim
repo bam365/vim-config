@@ -3,6 +3,10 @@ call plug#begin('~/local/share/nvim/plugged')
 "Plug 'scrooloose/syntastic'
 Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'bam365/vim-bamft'
 Plug 'cloudhead/neovim-fuzzy'
 Plug 'ctrlpvim/ctrlp.vim'
