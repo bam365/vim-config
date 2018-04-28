@@ -112,6 +112,7 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 let g:ale_linters = {
+    \ 'reason': ['refmt'],
     \ 'ocaml': [],
     \ }
 
