@@ -80,6 +80,7 @@ set background=dark " When set to "dark", Vim will try to use colors that look
  
 set mouse=a         " Enable the use of the mouse.
 
+set autoread
 
 set completeopt=longest,menuone
 
@@ -132,6 +133,8 @@ source ~/.vim/bam/typescript.vim
 augroup filetypedetect
     au BufRead,BufNewFile *.cshtml setfiletype html
 augroup END
+
+au FocusGained,BufEnter * :checktime
 
 let g:gruvbox_termcolors=256
 "looks like shit in Windows 10 bash console
