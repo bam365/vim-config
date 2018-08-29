@@ -117,6 +117,8 @@ let g:ale_linters = {
     \ 'ocaml': [],
     \ }
 
+let g:ale_linter_aliases = { 'typescriptreact': 'typescript' }
+
 let g:tsuquyomi_use_local_typescript = 0
 
 source ~/.vim/plugins.vim
