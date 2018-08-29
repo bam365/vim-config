@@ -116,6 +116,8 @@ let g:ale_linters = {
     \ 'ocaml': [],
     \ }
 
+let g:tsuquyomi_use_local_typescript = 0
+
 source ~/.vim/plugins.vim
 
 source ~/.vim/bam/linting.vim
