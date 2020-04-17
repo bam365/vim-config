@@ -3,10 +3,10 @@ call plug#begin('~/local/share/nvim/plugged')
 "Plug 'scrooloose/syntastic'
 Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ }
 Plug 'bam365/vim-bamft'
 Plug 'cloudhead/neovim-fuzzy'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -21,6 +21,7 @@ Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-startify'
 Plug 'mileszs/ack.vim'
 Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'pangloss/vim-javascript'
 Plug 'parsonsmatt/intero-neovim'
 Plug 'python-mode/python-mode'
