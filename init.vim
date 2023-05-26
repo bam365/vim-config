@@ -22,6 +22,7 @@ lua << EOF
     end
 
     require'lspconfig'.pyright.setup{on_attach=base_lsp_attach}
+    require'lspconfig'.tsserver.setup{on_attach=base_lsp_attach}
 EOF
 
 lua << EOF

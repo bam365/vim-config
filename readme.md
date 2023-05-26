@@ -12,7 +12,9 @@ Also, there are tons of additional dependencies for some of the plugins to opera
 - scala
 - via opam: ocaml, merlin
 - ctags
-- nodejs (for jshint)
+- node:
+    - typescript
+    - typescript-language-server
 - ...and probably more
 
 To bootstrap vim:

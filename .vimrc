@@ -115,11 +115,12 @@ let g:ackprg = 'rg --vimgrep --no-heading --glob '. shellescape('!{.git,node_mod
 let g:ale_linters = {
     \ 'reason': [],
     \ 'ocaml': [],
+    \ 'typescript': [],
     \ }
 
 let g:ale_linter_aliases = { 'typescriptreact': 'typescript' }
 
-let g:tsuquyomi_use_local_typescript = 0
+"let g:tsuquyomi_use_local_typescript = 0
 
 source ~/.vim/plugins.vim
 

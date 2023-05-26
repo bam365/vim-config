@@ -9,7 +9,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'neovim/nvim-lspconfig'
 
 "Plug 'scrooloose/syntastic'
-Plug 'Quramy/tsuquyomi'
+"Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim'
 "Plug 'autozimu/LanguageClient-neovim', {
 "    \ 'branch': 'next',
