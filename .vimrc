@@ -130,7 +130,7 @@ source ~/.vim/bam/airline.vim
 source ~/.vim/bam/go.vim 
 source ~/.vim/bam/haskell.vim 
 source ~/.vim/bam/javascript.vim 
-source ~/.vim/bam/ocaml.vim 
+"source ~/.vim/bam/ocaml.vim 
 source ~/.vim/bam/typescript.vim 
 
 augroup filetypedetect
