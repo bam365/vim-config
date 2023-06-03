@@ -1,21 +1,25 @@
-## vim-config
+# vim-config
 
-To do this, you will need to have installed
+## Bootstrap neovim
 
-- python2
-- git
+### For new, init.lua-based setup
 
-Also, there are tons of additional dependencies for some of the plugins to operate correctly:
+This way uses a single init.lua file, based on kickstart.nvim, to do everything. Uses lazy.nvim 
 
-- gcc
-- go
-- scala
-- via opam: ocaml, merlin
-- ctags
-- node:
-    - typescript
-    - typescript-language-server
-- ...and probably more
+    mv ~/.config/nvim ~/.config/nvim-old
+    git clone https://github.com/nvim-lua/kickstart.nvim ~/.config/nvim
+    cp init.kickstart.lua ~/.config/nvim/init.lua
+
+Then just run `nvim` and it will install all the dependencies and be good to go.
+You still will need to manually install external deps
+
+### For old, vim-compatible .vimrc setup
+
+This way uses a .vimrc and vim-plug. Run
+
+    sh nvim-install.sh
+
+## Bootstrap legacy vim
 
 To bootstrap vim:
 
@@ -27,3 +31,4 @@ To bootstrap vim:
         python vim-bootstrap.py ~/.vim
 
 The argument to vim-bootstrap.py is your user's vim config directory. This will vary on Windows or Mac.
+
