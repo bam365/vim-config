@@ -5,10 +5,25 @@ map <F3> :GrepOptions<CR>
 let mapleader = "\<SPACE>"
 
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>of :CtrlP<CR>
-nnoremap <Leader>or :CtrlPMRU<CR>
+"nnoremap <Leader>of :CtrlP<CR>
+"nnoremap <Leader>or :CtrlPMRU<CR>
 nnoremap <Leader>ft :NERDTreeToggle<CR>
-nnoremap <Leader>ff :FuzzyOpen<CR>
+"nnoremap <Leader>fT :NERDTreeToggle<CR>
+"nnoremap <Leader>ft <cmd>lua require('telescope.builtin').file_browser()<CR>
+"nnoremap <Leader>ff :FuzzyOpen<CR>
+nnoremap <Leader>ff :Telescope find_files<CR>
+nnoremap <Leader>fp :Telescope git_files<CR>
+nnoremap <Leader>or :Telescope oldfiles<CR>
+nnoremap <Leader>/ :Telescope live_grep<CR>
+
+" Trouble
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+
+
 vmap <Leader>y "+y
 vmap <Leader>d "+d
 map <Leader>p "+p

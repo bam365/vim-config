@@ -1,7 +1,15 @@
 call plug#begin('~/local/share/nvim/plugged')
 
+" for telescope (nvim 0.5 only)
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" for nvim 0.5's built-in lsp server
+Plug 'neovim/nvim-lspconfig'
+
 "Plug 'scrooloose/syntastic'
-Plug 'Quramy/tsuquyomi'
+"Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim'
 "Plug 'autozimu/LanguageClient-neovim', {
 "    \ 'branch': 'next',
@@ -13,6 +21,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-scala'
 Plug 'eagletmt/neco-ghc'
 Plug 'fatih/vim-go'
+Plug 'folke/trouble.nvim'
 Plug 'godlygeek/tabular'
 Plug 'jnurmine/Zenburn'
 Plug 'HerringtonDarkholme/yats.vim'
@@ -23,7 +32,6 @@ Plug 'mileszs/ack.vim'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'pangloss/vim-javascript'
-Plug 'parsonsmatt/intero-neovim'
 Plug 'python-mode/python-mode'
 Plug 'raichoo/purescript-vim'
 Plug 'reasonml-editor/vim-reason-plus'
