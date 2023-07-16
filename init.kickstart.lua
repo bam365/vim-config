@@ -357,7 +357,14 @@ require('nvim-treesitter.configs').setup {
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    disable = {
+      -- typescripts treesitter highlighting is ugly
+      "typescript",
+      "tsx"
+    }
+  },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
     enable = true,
@@ -476,6 +483,7 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
+  -- ocamllsp = {},
   pyright = {},
   -- rust_analyzer = {},
   tsserver = {},
@@ -510,6 +518,11 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
     }
   end,
+}
+
+-- Non-mason LSP stuff
+require'lspconfig'.ocamllsp.setup {
+  on_attach = on_attach,
 }
 
 -- [[ Configure nvim-cmp ]]
@@ -566,7 +579,11 @@ cmp.setup {
 -- Aerial stuff (code outlining)
 require('aerial').setup({
   -- LSP seems to be better than treesitter, at least for TS
-  backends = { 'lsp', 'treesitter' },
+  backends = {
+    ['_'] = { 'lsp', 'treesitter' },
+    -- lsp doesn't seem to work for ocaml, just loads infinitely
+    ocaml = { 'treesitter' }
+  },
   filter_kind = false,
   nav = {
     preview = true,
