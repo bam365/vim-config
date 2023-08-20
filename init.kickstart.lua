@@ -229,6 +229,7 @@ vim.wo.number = false
 
 -- Default tabstop 4
 vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -236,7 +237,7 @@ vim.o.mouse = 'a'
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+-- vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -273,9 +274,9 @@ vim.keymap.set('n', '<Leader>wk', '<C-w>k')
 vim.keymap.set('n', '<Leader>wl', '<C-w>l')
 vim.keymap.set('n', '<Leader>sv', ':vsplit<CR>')
 vim.keymap.set('n', '<Leader>sh', ':split<CR>')
-vim.keymap.set({}, '<Leader>y', '"+y')
-vim.keymap.set({}, '<Leader>p', '"+p')
-vim.keymap.set({}, '<Leader>P', '"+P')
+vim.keymap.set('n', '<Leader>y', [["+y]])
+vim.keymap.set('n', '<Leader>p', [["+p]])
+vim.keymap.set('n', '<Leader>P', [["+P]])
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
