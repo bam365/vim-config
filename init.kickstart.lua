@@ -277,6 +277,7 @@ vim.keymap.set('n', '<Leader>sh', ':split<CR>')
 vim.keymap.set('n', '<Leader>y', [["+y]])
 vim.keymap.set('n', '<Leader>p', [["+p]])
 vim.keymap.set('n', '<Leader>P', [["+P]])
+vim.keymap.set('n', '<Leader>lif', 'V!fp-ts-import.py<CR>')
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
