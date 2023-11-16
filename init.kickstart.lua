@@ -202,6 +202,8 @@ require('lazy').setup({
 
   'nvim-tree/nvim-tree.lua',
   'stevearc/aerial.nvim',
+  { 'scalameta/nvim-metals', dependencies = { 'nvim-lua/plenary.nvim' } },
+  'ionide/Ionide-vim',
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -482,14 +484,20 @@ end
 --
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
+local nvim_lsp = require'lspconfig'
+
 local servers = {
   -- clangd = {},
-  -- gopls = {},
+  gopls = {},
   -- ocamllsp = {},
   pyright = {},
   -- rust_analyzer = {},
-  tsserver = {},
-
+  -- tsserver = {},
+  --[[
+  denols = {
+    root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+  },
+  ]]--
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -523,9 +531,51 @@ mason_lspconfig.setup_handlers {
 }
 
 -- Non-mason LSP stuff
-require'lspconfig'.ocamllsp.setup {
+nvim_lsp.ocamllsp.setup {
   on_attach = on_attach,
 }
+
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = nvim_lsp.util.root_pattern("tsconfig.json", "package.json"),
+  single_file_support = false
+}
+
+nvim_lsp.denols.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+-- Metals (Scala)
+local metals_config = require("metals").bare_config()
+
+metals_config.settings = {
+  showImplicitArguments = true,
+  excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+}
+
+local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  -- NOTE: You may or may not want java included here. You will need it if you
+  -- want basic Java support but it may also conflict if you are using
+  -- something like nvim-jdtls which also works on a java filetype autocmd.
+  pattern = { "scala", "sbt", "java" },
+  callback = function()
+    require("metals").initialize_or_attach(metals_config)
+    on_attach()
+  end,
+  group = nvim_metals_group,
+})
+
+-- F#
+vim.g['fsharp#lsp_auto_setup'] = 0
+vim.g['fsharp#lsp_codelens'] = 0
+require('ionide').setup {
+  on_attach=on_attach,
+}
+
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
