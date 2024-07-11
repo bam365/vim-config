@@ -41,6 +41,10 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.g['fsharp#lsp_auto_setup'] = 0
+vim.g['fsharp#lsp-codelens'] = 0
+vim.g['fsharp#EnableReferenceCodeLens'] = 0
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -84,7 +88,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -108,7 +112,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',          opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -130,7 +134,7 @@ require('lazy').setup({
   },
 
   {
-  --[[
+    --[[
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
@@ -139,7 +143,7 @@ require('lazy').setup({
     end,
   },
   --]]
-    -- Gruvbox 
+    -- Gruvbox
     'ellisonleao/gruvbox.nvim',
     priority = 1000,
     config = function()
@@ -164,16 +168,10 @@ require('lazy').setup({
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -202,6 +200,53 @@ require('lazy').setup({
 
   'nvim-tree/nvim-tree.lua',
   'stevearc/aerial.nvim',
+  {
+    'glacambre/firenvim',
+    lazy = not vim.g.started_by_firenvim,
+    build = function()
+      vim.fn["firenvim#install"](0)
+    end
+  },
+
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        "<leader>mf",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
+    -- Everything in opts will be passed to setup()
+    opts = {
+      -- Define your formatters
+      formatters_by_ft = {
+        --lua = { "stylua" },
+        --python = { "isort", "black" },
+        javascript = { { "prettierd", "prettier" } },
+        typescript = { { "prettierd", "prettier" } },
+      },
+      -- Set up format-on-save
+      format_on_save = { timeout_ms = 500, lsp_fallback = true },
+      -- Customize formatters
+      formatters = {
+        shfmt = {
+          prepend_args = { "-i", "2" },
+        },
+      },
+    },
+    init = function()
+      -- If you want the formatexpr, here is the place to set it
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
+  },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -325,7 +370,8 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-]]--
+]]
+--
 
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
@@ -352,9 +398,19 @@ vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>')
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.fsharp = {
+  install_info = {
+    url = "https://github.com/ionide/tree-sitter-fsharp",
+    branch = "main",
+    files = { "src/scanner.c", "src/parser.c" },
+  },
+  filetype = "fsharp",
+}
+
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'fsharp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -469,7 +525,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
-  ]]--
+  ]]
+  --
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -522,14 +579,42 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+local nvim_lsp = require 'lspconfig'
+
 -- Non-mason LSP stuff
-require'lspconfig'.ocamllsp.setup {
+nvim_lsp.ocamllsp.setup {
+  on_attach = on_attach,
+}
+
+nvim_lsp.rust_analyzer.setup({
+  ["rust-analyzer"] = {
+    imports = {
+      granularity = {
+        group = "module",
+      },
+      prefix = "self",
+    },
+    cargo = {
+      buildScripts = {
+        enable = true,
+      }
+    },
+    procMacro = {
+      enable = true
+    }
+  }
+})
+
+-- F#
+nvim_lsp.fsautocomplete.setup {
   on_attach = on_attach,
 }
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
+
+
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
@@ -578,6 +663,7 @@ cmp.setup {
   },
 }
 
+
 -- Aerial stuff (code outlining)
 require('aerial').setup({
   -- LSP seems to be better than treesitter, at least for TS
@@ -601,10 +687,24 @@ require('aerial').setup({
     -- vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
     -- vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
   end
-  ]]--
+  ]] --
 })
 vim.keymap.set('n', '<Leader>co', '<cmd>AerialToggle!<CR>')
 vim.keymap.set('n', '<Leader>cn', '<cmd>AerialNavToggle<CR>')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Firenvim settings
+vim.g.firenvim_config = {
+  globalSettings = { alt = "all" },
+  localSettings = {
+    ['.*'] = {
+      takeover = 'never'
+    },
+    ['app.shortcut.com*'] = {
+      takeover = 'always',
+      priority = 1
+    }
+  }
+}
