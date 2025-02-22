@@ -70,7 +70,7 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  --'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -96,8 +96,8 @@ require('lazy').setup({
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
+      --'L3MON4D3/LuaSnip',
+      --'saadparwaiz1/cmp_luasnip',
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
@@ -203,7 +203,7 @@ require('lazy').setup({
   'nvim-tree/nvim-tree.lua',
   'stevearc/aerial.nvim',
   { 'scalameta/nvim-metals', dependencies = { 'nvim-lua/plenary.nvim' } },
-  'ionide/Ionide-vim',
+  -- 'ionide/Ionide-vim',
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -230,6 +230,7 @@ vim.o.hlsearch = false
 vim.wo.number = false
 
 -- Default tabstop 4
+vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
@@ -535,7 +536,7 @@ nvim_lsp.ocamllsp.setup {
   on_attach = on_attach,
 }
 
-nvim_lsp.tsserver.setup {
+nvim_lsp.ts_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = nvim_lsp.util.root_pattern("tsconfig.json", "package.json"),
@@ -546,6 +547,10 @@ nvim_lsp.denols.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+nvim_lsp.clangd.setup {
+  on_attach = on_attach,
 }
 
 -- Metals (Scala)
@@ -570,19 +575,34 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- F#
-vim.g['fsharp#lsp_auto_setup'] = 0
-vim.g['fsharp#lsp_codelens'] = 0
-require('ionide').setup {
-  on_attach=on_attach,
+nvim_lsp.fsautocomplete.setup{}
+
+-- Haskell
+nvim_lsp.hls.setup {
+  filetypes = { "haskell", "lhaskell", "cabal" },
+  on_attach = on_attach,
+}
+
+nvim_lsp.nixd.setup {
+  on_attach = on_attach,
+}
+
+nvim_lsp.rust_analyzer.setup {
+  on_attach = on_attach,
+  settings = {
+    ['rust-analyzer'] = {
+      enable = false;
+    },
+  },
 }
 
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
+--local luasnip = require 'luasnip'
+--require('luasnip.loaders.from_vscode').lazy_load()
+--luasnip.config.setup {}
 
 cmp.setup {
   completion = {
@@ -590,7 +610,7 @@ cmp.setup {
   },
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      --luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert {
@@ -606,8 +626,8 @@ cmp.setup {
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
+      --elseif luasnip.expand_or_locally_jumpable() then
+      --  luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -615,8 +635,8 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
+      --elseif luasnip.locally_jumpable(-1) then
+      --  luasnip.jump(-1)
       else
         fallback()
       end
@@ -624,7 +644,7 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    --{ name = 'luasnip' },
   },
 }
 
