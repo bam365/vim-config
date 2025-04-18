@@ -84,7 +84,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -108,7 +108,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',          opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -130,7 +130,7 @@ require('lazy').setup({
   },
 
   {
-  --[[
+    --[[
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
@@ -139,7 +139,7 @@ require('lazy').setup({
     end,
   },
   --]]
-    -- Gruvbox 
+    -- Gruvbox
     'ellisonleao/gruvbox.nvim',
     priority = 1000,
     config = function()
@@ -164,16 +164,11 @@ require('lazy').setup({
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl"
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -202,7 +197,7 @@ require('lazy').setup({
 
   'nvim-tree/nvim-tree.lua',
   'stevearc/aerial.nvim',
-  { 'scalameta/nvim-metals', dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'scalameta/nvim-metals',  dependencies = { 'nvim-lua/plenary.nvim' } },
   -- 'ionide/Ionide-vim',
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -216,6 +211,46 @@ require('lazy').setup({
   --    up-to-date with whatever is in the kickstart repo.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
+  --
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        "<leader>mf",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
+    -- Everything in opts will be passed to setup()
+    opts = {
+      -- Define your formatters
+      formatters_by_ft = {
+        --lua = { "stylua" },
+        --python = { "isort", "black" },
+        rust = { "rustfmt" },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+      },
+      -- Set up format-on-save
+      format_on_save = { timeout_ms = 500, lsp_fallback = true },
+      -- Customize formatters
+      formatters = {
+        shfmt = {
+          prepend_args = { "-i", "2" },
+        },
+      },
+    },
+    init = function()
+      -- If you want the formatexpr, here is the place to set it
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
+  },
   { import = 'custom.plugins' },
 }, {})
 
@@ -328,7 +363,8 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-]]--
+]]
+--
 
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
@@ -434,7 +470,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -472,7 +508,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
-  ]]--
+  ]]
+  --
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -485,7 +522,7 @@ end
 --
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
-local nvim_lsp = require'lspconfig'
+local nvim_lsp = require 'lspconfig'
 
 local servers = {
   -- clangd = {},
@@ -498,7 +535,7 @@ local servers = {
   denols = {
     root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
   },
-  ]]--
+  ]] --
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -575,7 +612,12 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- F#
-nvim_lsp.fsautocomplete.setup{}
+nvim_lsp.fsautocomplete.setup {
+  on_attach = function(client, buffer)
+    client.server_capabilities.semanticTokensProvider = nil
+    on_attach(client, buffer)
+  end
+}
 
 -- Haskell
 nvim_lsp.hls.setup {
@@ -591,7 +633,7 @@ nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,
   settings = {
     ['rust-analyzer'] = {
-      enable = false;
+      enable = false,
     },
   },
 }
@@ -626,8 +668,8 @@ cmp.setup {
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      --elseif luasnip.expand_or_locally_jumpable() then
-      --  luasnip.expand_or_jump()
+        --elseif luasnip.expand_or_locally_jumpable() then
+        --  luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -635,8 +677,8 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      --elseif luasnip.locally_jumpable(-1) then
-      --  luasnip.jump(-1)
+        --elseif luasnip.locally_jumpable(-1) then
+        --  luasnip.jump(-1)
       else
         fallback()
       end
@@ -671,7 +713,7 @@ require('aerial').setup({
     -- vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
     -- vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
   end
-  ]]--
+  ]] --
 })
 vim.keymap.set('n', '<Leader>co', '<cmd>AerialToggle!<CR>')
 vim.keymap.set('n', '<Leader>cn', '<cmd>AerialNavToggle<CR>')
