@@ -1,34 +1,61 @@
 # vim-config
 
-## Bootstrap neovim
+## Get neovim
 
-### For new, init.lua-based setup
+You want nvim 0.11.6. A lot of distros won't have anything near the latest version, in which
+case, install nix and enable nix flakes, and then install nvim with
 
-This way uses a single init.lua file, based on kickstart.nvim, to do everything. Uses lazy.nvim 
+```
+$ nix profile add nixpkgs#neovim
+```
+## Copy the config
 
-    mv ~/.config/nvim ~/.config/nvim-old
-    git clone https://github.com/nvim-lua/kickstart.nvim ~/.config/nvim
-    cp init.kickstart.lua ~/.config/nvim/init.lua
+cp init.lua ~/.config/nvim
 
-Then just run `nvim` and it will install all the dependencies and be good to go.
-You still will need to manually install external deps
+## External dependencies
 
-### For old, vim-compatible .vimrc setup
+You'll probably need to install all these
 
-This way uses a .vimrc and vim-plug. Run
+- `ripgrep`
+- `fzf` and `fzy`
+- Language servers
+    - `typescript-language-server` (`npm install -g typescript-language-server`)
+    - `rust-analyzer` (`rustup component add rust-analyzer`)
+    - `fsautocomplete` (`dotnet tool install --global fsautocomplete`)
+- The tools at `https://codeberg.org/bam365/bamclitoolsrs`
+- probably a bunch of other stuff I'm forgetting
 
-    sh nvim-install.sh
+## Major plugins
 
-## Bootstrap legacy vim
+- nvim-cmp (for auto-completion)
+- gruvbox.nvim (colorscheme)
+- lualine.nvim (status line)
+- telescope.nvim (modal for file finding and grepping)
+- nvim-tree (file explorer)
+- aerial.nvim (code outlining)
+- conform.nvim (code auto-formatting)
 
-To bootstrap vim:
+## Special notes
 
-1. Copy the .vimrc from this repo to ~/.vimrc
-2. Run the vim-bootstrap.py script:
 
-        python2 vim-bootstrap.py ~/.vim
-        # OR, if your default python is python2:
-        python vim-bootstrap.py ~/.vim
+### lsp-config
 
-The argument to vim-bootstrap.py is your user's vim config directory. This will vary on Windows or Mac.
+The lsp-config plugin is no longer needed, it's built in. Each server has an entry
+under `vim.lsp.config`. Then enable the server with filetype with `vim.lsp.enable('filetype')`
+
+### tree-sitter
+
+The nvim-treesitter plugin is in a weird place rn (just got through an entire,
+not-backwards-compatible rewrite), so I'm not using it. tree-sitter integration
+is built into nvim itself, so if you want parsers you can just download and
+compile them, install the parser to ~/.config/nvim/parser/<filetype>.so, and any
+queries to ~/.config/nvim/queries/<filetype>/*.scm. Make sure to call
+`vim.treesitter.start()` when opening relevant filetypes
+
+### F#
+
+I don't like the ionide plugin, I prefer just using fsautocomplete for LSP and
+tree-sitter for syntax highlighting. Run the script
+`install-fsharp-treesitter.sh` to install the tree-sitter parser and queries,
+and everything _should_ work.
 
