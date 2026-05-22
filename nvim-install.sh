@@ -5,8 +5,6 @@ mkdir -p ~/.vim/swap
 mkdir -p ~/.vim/undo
 mkdir -p ~/.vim/session
 mkdir -p ~/.config/nvim
-cp .vimrc ~
-cp nvim-plugins.vim ~/.vim/plugins.vim
 cp bam/*.vim ~/.vim/bam
 cp init.vim ~/.config/nvim
 cp kalisi.vim ~/.vim/bundle/vim-airline-themes/autoload/airline/themes
